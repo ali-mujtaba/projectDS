@@ -8,11 +8,16 @@ public class RadixSort {
 		for (int i = 0; i < arr.length; i++)
 			System.out.print(arr[i] + " ");
 		System.out.println();
-		sort(arr);
+		arr = sort(arr);
+		System.out.print("Sorted array is as follows: ");
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		System.out.println();
 
 	}
 
-	static void sort(int arr[]) {
+	static int[] sort(int arr[]) {
 		int n = arr.length;
 		int a = 1, b = 0;
 		int c = 0;
@@ -60,11 +65,6 @@ public class RadixSort {
 			arr = sortedArr;
 		}
 
-		System.out.print("Sorted array is as follows: ");
-		for (int i = 0; i < arr.length; i++) {
-			System.out.print(arr[i] + " ");
-		}
-		System.out.println();
-
+		return arr;
 	}
 }
