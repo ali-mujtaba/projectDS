@@ -39,11 +39,16 @@ public class CountingSort {
 		for (int i = max - min - 1; i >= 0; i--)
 			sumCount[i] = count[i] + sumCount[i + 1];
 
+		for (int i = 0; i < rs - 1; i++)
+			sumCount[i] = sumCount[i + 1];
+		sumCount[rs - 1] = 0;
+
+
 		int[] sortedArr = new int[n];
 		for (int i = 0; i < n; i++) {
 			int pos = sumCount[arr[i] - min];
-			sortedArr[pos - 1] = arr[i];
-			sumCount[arr[i] - min]--;
+			sortedArr[pos] = arr[i];
+			sumCount[arr[i] - min]++;
 		}
 
 		// following up on intermediate steps
