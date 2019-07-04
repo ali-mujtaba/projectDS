@@ -1,10 +1,10 @@
 package com.practice.linkedlist;
 
-// Implementation of Queue using Linked List
+// Implementation of Circular Queue using Linked List
 
 import java.util.Scanner;
 
-public class Queue {
+public class CircularQueue {
   static LinkedListNode rear, front;
 
   public static void main(String[] args) {
@@ -37,14 +37,15 @@ public class Queue {
   }
 
   static void enqueue(int d) {
-    LinkedListNode node = new LinkedListNode();
-    node.data = d;
+    LinkedListNode linkedListNode = new LinkedListNode();
+    linkedListNode.data = d;
     if (front == null) {
-      rear = node;
-      front = node;
+      rear = linkedListNode;
+      front = linkedListNode;
     } else {
-      rear.next = node;
+      rear.next = linkedListNode;
       rear = rear.next;
+      rear.next = front;
     }
 
   }
@@ -73,7 +74,7 @@ public class Queue {
     curr = front;
     System.out.print("Queue: ");
     if (front != null) {
-      while (curr.next != null) {
+      while (curr != rear) {
         System.out.print(curr.data + " -> ");
         curr = curr.next;
       }
