@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class BinarySearch {
 
-
   public static void main(String[] args) {
     Scanner bs = new Scanner(System.in);
     // System.out.print("Enter the size of array: ");
@@ -33,5 +32,4 @@ public class BinarySearch {
     if (top > bot)
       System.out.println("Element not found!");
   }
-
 }
