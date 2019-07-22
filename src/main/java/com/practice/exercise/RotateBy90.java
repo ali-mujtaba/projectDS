@@ -1,6 +1,8 @@
 // Given an image represented by an NxN matrix, where each pixel is 4 bytes.
 // Write a method to rotate the image by 90 degrees.
 // Rotating by 90 degree anticlockwise.
+package com.practice.exercise;
+
 import java.util.Scanner;
 public class RotateBy90 {
 	public static void main(String[] args) {

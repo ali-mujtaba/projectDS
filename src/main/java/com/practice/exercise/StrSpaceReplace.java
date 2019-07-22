@@ -1,4 +1,5 @@
 // Write a method to replace all spaces in a string with '%20'.
+package com.practice.exercise;
 
 import java.util.Scanner;
 public class StrSpaceReplace {

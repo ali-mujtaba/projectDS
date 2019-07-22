@@ -1,4 +1,5 @@
 // Implement a method to perform basic string compression using the counts of repeated characters.
+package com.practice.exercise;
 
 public class StringCompression {
 	public static void main(String[] args) {
