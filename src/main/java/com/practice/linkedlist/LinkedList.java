@@ -5,15 +5,15 @@ package com.practice.linkedlist;
 import java.util.Scanner;
 
 public class LinkedList {
-  static LinkedListNode head;
+  private static LinkedListNode head;
 
   public static void main(String[] args) {
-    int c = 0;
-    while (c != 8) {
+    int choice = 0;
+    while (choice != 8) {
       System.out.println("\nEnter your choice :-\n 1. insert 2. insert at position 3. insert at beginning 4. delete \n5. delete from position 6. delete from beginning 7. display list 8. exit");
-      Scanner ll = new Scanner(System.in);
-      c = ll.nextInt();
-      switch (c) {
+      Scanner scanner = new Scanner(System.in);
+      choice = scanner.nextInt();
+      switch (choice) {
         case 1:
           insert();
           break;
@@ -21,16 +21,16 @@ public class LinkedList {
           insertAt();
           break;
         case 3:
-          insertAtBeg();
+          insertAtBeginning();
           break;
         case 4:
           delete();
           break;
         case 5:
-          deleteFromPos();
+          deleteFromPosition();
           break;
         case 6:
-          deleteFromBeg();
+          deleteFromBeginning();
           break;
         case 7:
           display();
@@ -44,103 +44,104 @@ public class LinkedList {
     }
   }
 
-  static void insert() {
-    Scanner ll = new Scanner(System.in);
+  private static void insert() {
+    Scanner scanner = new Scanner(System.in);
     System.out.println("Enter the value to be inserted: ");
-    int d = ll.nextInt();
-    LinkedListNode node = new LinkedListNode();
-    node.data = d;
-    if (head == null)
+    int data = scanner.nextInt();
+    LinkedListNode node = new LinkedListNode(data);
+
+    if (isEmpty()) {
       head = node;
-    else {
-      LinkedListNode curr;
-      curr = head;
-      while (curr.next != null)
-        curr = curr.next;
-      curr.next = node;
+    } else {
+      LinkedListNode current = head;
+
+      while (current.next != null) {
+        current = current.next;
+      }
+
+      current.next = node;
     }
   }
 
-  static void insertAt() {
-    Scanner ll = new Scanner(System.in);
+  private static void insertAt() {
+    Scanner scanner = new Scanner(System.in);
     System.out.println("Enter the value to be inserted: ");
-    int d = ll.nextInt();
+    int data = scanner.nextInt();
     System.out.println("Enter the position you want to insert at: ");
-    int p = ll.nextInt();
-    LinkedListNode node = new LinkedListNode();
-    node.data = d;
-    LinkedListNode curr = new LinkedListNode();
-    curr = head;
-    if (head == null)
+    int position = scanner.nextInt();
+    LinkedListNode node = new LinkedListNode(data);
+    LinkedListNode curr = head;
+    // TODO revisit this logic, looks too complex
+    if (isEmpty()) {
       head = node;
-    else if (p == 1) {
+    } else if (position == 1) {
       node.next = head;
       head = node;
     } else {
-      while (p > 2) {
-        if (curr.next == null)
+      while (position > 2) {
+        if (curr.next == null) {
           break;
+        }
         curr = curr.next;
-        p--;
+        position--;
       }
       node.next = curr.next;
       curr.next = node;
     }
   }
 
-  static void insertAtBeg() {
-    Scanner ll = new Scanner(System.in);
+  private static void insertAtBeginning() {
+    Scanner scanner = new Scanner(System.in);
     System.out.println("Enter the element to be inserted: ");
-    int d = ll.nextInt();
-    LinkedListNode node = new LinkedListNode();
-    node.data = d;
-    if (head == null)
+    int data = scanner.nextInt();
+    LinkedListNode node = new LinkedListNode(data);
+
+    if (isEmpty()) {
       head = node;
-    else {
+    } else {
       node.next = head;
       head = node;
     }
   }
 
-  static void display() {
-    System.out.println("Linked List is as follows:-");
-    if (head == null)
+  private static void display() {
+    if (isEmpty()) {
       System.out.println("List is empty!");
-    else {
-      LinkedListNode curr;
-      curr = head;
-      while (curr.next != null) {
-        System.out.print(curr.data + " -> ");
-        curr = curr.next;
+    } else {
+      System.out.println("Linked List is as follows:-");
+      LinkedListNode current = head;
+
+      while (current != null) {
+        System.out.print(current.data + " -> ");
+        current = current.next;
       }
-      System.out.println(curr.data);
     }
   }
 
-  static void delete() {
+  private static void delete() {
+    // TODO revisit logic, why is this soo complex
     int flag = 0;
-    Scanner ll = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
     System.out.println("Enter the element to be deleted: ");
-    int d = ll.nextInt();
-    if (head == null)
+    int element = scanner.nextInt();
+    if (isEmpty()) {
       System.out.println("List is empty!");
-    else if (head.next == null) {
-      if (head.data == d) {
+    } else if (head.next == null) {
+      if (head.data == element) {
         flag = 1;
         head = null;
       }
     } else {
-      LinkedListNode curr = new LinkedListNode();
-      curr = head;
-      if (head.data == d) {
+      LinkedListNode curr = head;
+      if (head.data == element) {
         flag = 1;
         head = head.next;
-      } else if (head.next.data == d) {
+      } else if (head.next.data == element) {
         flag = 1;
         head.next = head.next.next;
       } else {
         while (curr.next.next != null) {
-          if (curr.next.data == d) {
+          if (curr.next.data == element) {
             flag = 1;
             curr.next = curr.next.next;
             break;
@@ -148,47 +149,54 @@ public class LinkedList {
           curr = curr.next;
         }
       }
-      if (flag == 1)
+      if (flag == 1) {
         System.out.println("Element found and deleted!");
-      else {
-        if (curr.next.data == d) {
+      } else {
+        if (curr.next.data == element) {
           System.out.println("Element found and deleted!");
           curr.next = null;
-        } else
+        } else {
           System.out.println("Element not found!");
+        }
       }
     }
   }
 
-  static void deleteFromBeg() {
-    if (head == null)
+  private static void deleteFromBeginning() {
+    if (isEmpty()) {
       System.out.println("List is empty!");
-    else {
+    } else {
       System.out.println("Element removed: " + head.data);
       head = head.next;
     }
   }
 
-  static void deleteFromPos() {
-    Scanner ll = new Scanner(System.in);
+  private static void deleteFromPosition() {
+    Scanner scanner = new Scanner(System.in);
     System.out.println("Enter the position you want to delete from: ");
-    int p = ll.nextInt();
-    LinkedListNode curr = new LinkedListNode();
-    curr = head;
-    if (head == null)
+    int position = scanner.nextInt();
+    LinkedListNode curr = head;
+    // TODO revisit too complex
+    if (isEmpty()) {
       System.out.println("List is empty!");
-    else if (p == 1) {
+    } else if (position == 1) {
       System.out.println("Element removed: " + head.data);
       head = head.next;
     } else {
-      while (p > 2) {
-        if (curr.next == null)
+      while (position > 2) {
+        if (curr.next == null) {
           break;
+        }
         curr = curr.next;
-        p--;
+        position--;
       }
+      // TODO it will throw NullPointerException in the below linw
       System.out.println("Element removed: " + curr.next.data);
       curr.next = curr.next.next;
     }
+  }
+
+  private static boolean isEmpty() {
+    return head == null;
   }
 }

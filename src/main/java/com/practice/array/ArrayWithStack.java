@@ -1,31 +1,42 @@
 package com.practice.array;
 
-// JAVA program implementing Stack data structure
+/*
+ * Program implementing Stack data structure using arrays
+ * */
 
 import java.util.Scanner;
 
 class ArrayWithStack {
-  int starr[], top = -1, cap;
-  Scanner stsc = new Scanner(System.in);
+
+  private int myStack[], top = -1, capacity;
+  private Scanner scanner = new Scanner(System.in);
 
   public static void main(String[] args) {
+    ArrayWithStack arrayWithStack = new ArrayWithStack();
+    arrayWithStack.initialize();
 
-    ArrayWithStack obj = new ArrayWithStack();
-    obj.stackDef();
-    obj.stackActs();
+    while (true) {
+      int action = arrayWithStack.getAction();
+      if (action == 5) {
+        break;
+      }
+      arrayWithStack.performAction(action);
+    }
   }
 
-  void stackDef() {
-    System.out.println("Enter the stack capacity: ");
-    cap = stsc.nextInt();
-    starr = new int[cap];
+  private void initialize() {
+    System.out.println("Enter Stack Capacity: ");
+    capacity = scanner.nextInt();
+    myStack = new int[capacity];
   }
 
-  void stackActs() {
+  private int getAction() {
     System.out.println("\nEnter your choice of action: \n 1. Push  2. Pop  3. Peek  4. Display  5. Exit");
-    int c = stsc.nextInt();
+    return scanner.nextInt();
+  }
 
-    switch (c) {
+  private void performAction(int action) {
+    switch (action) {
       case 1:
         push();
         break;
@@ -39,60 +50,67 @@ class ArrayWithStack {
         break;
 
       case 4:
-        dispStack();
+        display();
         break;
 
-      case 5:
-        break;
       default:
-        System.out.println("Invalid choice. Try Again\n");
+        System.out.println("Invalid action. Try Again\n");
         break;
     }
-
-    if (c != 5)
-      stackActs();
   }
 
-  void dispStack() {
-    int ttop = top;
+  private void display() {
+    if (top == -1) {
+      System.out.println("Stack is empty.");
+      return;
+    }
+
+    int currentTop = top;
     System.out.print("Stack: ");
-    while (ttop > -1 && ttop < cap) {
-      System.out.print(starr[ttop] + " ");
-      ttop--;
+    while (currentTop > -1) {
+      System.out.print(myStack[currentTop] + " ");
+      currentTop--;
     }
     System.out.println();
   }
 
-  void push() {
-
-    if (top >= (cap - 1))
+  private void push() {
+    if (isFull()) {
       System.out.println("Stack Overflow!");
-    else {
-      top++;
-      System.out.println("Enter element to be pushed to the stack: ");
-      int x = stsc.nextInt();
-      starr[top] = x;
-      dispStack();
+      return;
     }
+
+    top++;
+    System.out.println("Enter element to be pushed to the stack: ");
+    int newElement = scanner.nextInt();
+    myStack[top] = newElement;
+    display();
   }
 
-  void pop() {
-    if (top == -1)
-      System.out.println("Stack Underflow!");
-    else {
-      System.out.println("Element popped: " + starr[top]);
-      top--;
-      dispStack();
+  private void pop() {
+    if (isEmpty()) {
+      System.out.println("Stack is empty");
+      return;
     }
+
+    System.out.println("Element popped: " + myStack[top]);
+    top--;
   }
 
-  void peek() {
-    int ttop = top;
-    if (ttop > -1 && ttop < cap)
-      System.out.println("Element at top: " + starr[top]);
-
-    if (top == -1)
+  private void peek() {
+    if (isEmpty()) {
       System.out.println("Stack is empty! ");
+      return;
+    }
 
+    System.out.println("Element at top: " + myStack[top]);
+  }
+
+  private boolean isEmpty() {
+    return top == -1;
+  }
+
+  private boolean isFull() {
+    return top == capacity - 1;
   }
 }
