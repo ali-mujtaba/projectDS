@@ -3,6 +3,7 @@ package com.practice.exercisev2;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Arrays;
 
 public class StrPermutation {
 	public static void main(String[] args) throws Exception {
@@ -13,7 +14,8 @@ public class StrPermutation {
 		String str2 = bufferedReader.readLine();
 
 		System.out.println("String2 is a permutation of String1: " + isPermutation(str1, str2));
-		System.out.println("String2 is a permutation of String1: " + StrPermutation2.isPermutation(str1, str2));
+		System.out.println("String2 is a permutation of String1: " + isPermutation2(str1, str2));
+		System.out.println("String2 is a permutation of String1: " + isPermutation3(str1, str2));
 	}
 
 	static boolean isPermutation(String str1, String str2) {
@@ -54,13 +56,12 @@ public class StrPermutation {
 		if (charCount.isEmpty()) {
 			return true;
 		}
+
 		return false;
 
 	}
-}
 
-class StrPermutation2 {
-	static boolean isPermutation(String str1, String str2) {
+	static boolean isPermutation2(String str1, String str2) {
 		int str1Len = str1.length();
 		int str2Len = str2.length();
 
@@ -87,6 +88,29 @@ class StrPermutation2 {
 				}
 			}
 		}
+
 		return true;
 	}
+
+	static boolean isPermutation3(String str1, String str2) {
+		if (str1.length() != str2.length()) {
+			return false;
+		}
+
+		char[] st1 = str1.toCharArray();
+		char[] st2 = str2.toCharArray();
+
+		Arrays.sort(st1);
+		Arrays.sort(st2);
+
+		for (int i = 0; i < st1.length; i++) {
+			if (st1[i] != st2[i]) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 }
+
