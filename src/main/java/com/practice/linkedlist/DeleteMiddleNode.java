@@ -19,7 +19,7 @@ public class DeleteMiddleNode {
 
 	public static void deleteNode(Node node) {
 
-		if (node.next == null) {
+		if (node == null || node.next == null) {
 			System.out.println("Can't delete start/end node. ");
 			return;
 		}

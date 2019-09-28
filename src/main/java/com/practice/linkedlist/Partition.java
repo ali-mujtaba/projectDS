@@ -15,16 +15,17 @@ public class Partition {
 		System.out.print("Enter key: ");
 		int partitionKey = scanner.nextInt();
 
-		list = partitionList(list, list, partitionKey);
+		RemoveDuplicates.displayList(partitionList(list, list, partitionKey));
 
-		RemoveDuplicates.displayList(list);
+		RemoveDuplicates.displayList(partitionList(list, partitionKey));
+		RemoveDuplicates.displayList(partitionList2(list, partitionKey));
+
+
 	}
 
 	public static Node partitionList(Node head, Node list, int key) {
 
-		// System.out.println("Entry:- \nHead: " + head.data + "\tlist: " + list.data);
-		if (list.next == null) {
-
+		if (list == null || list.next == null) {
 			return list;
 		}
 
@@ -45,8 +46,6 @@ public class Partition {
 
 				return temp;
 			}
-			// System.out.println("Exit:- \nHead: " + head.data + "\tlist: " + list.data + "\tcurrent: " + current.data);
-			// RemoveDuplicates.displayList(head);
 
 			return head;
 		}
@@ -56,12 +55,91 @@ public class Partition {
 			list.next = current.next;
 			current.next = head.next;
 			head.next = current;
-
 		}
 
 		// System.out.println("Exit:- \nHead: " + head.data + "\tlist: " + list.data + "\tcurrent: " + current.data);
 		// RemoveDuplicates.displayList(head);
 		return list;
 
+	}
+
+	static Node partitionList(Node current, int key) {
+		if (current == null || current.next == null) {
+			return current;
+		}
+
+		Node precedingListHead = null;
+		Node precedingListTail = null;
+		Node followingListHead = null;
+		Node followingListTail = null;
+
+		while (current != null) {
+
+			if (current.data < key) {
+				if (precedingListHead == null) {
+					precedingListHead = current;
+					precedingListTail = current;
+				} else {
+					precedingListTail.next = current;
+					precedingListTail = current;
+				}
+				current = current.next;
+				precedingListTail.next = null;
+
+
+			} else {
+				if (followingListHead == null) {
+					followingListHead = current;
+					followingListTail = current;
+				} else {
+					followingListTail.next = current;
+					followingListTail = current;
+				}
+				current = current.next;
+				followingListTail.next = null;
+
+			}
+
+
+		}
+
+		precedingListTail.next = followingListHead;
+
+		return precedingListHead;
+	}
+
+	static Node partitionList2(Node current, int key) {
+		if (current == null || current.next == null) {
+			return current;
+		}
+
+		Node head = null;
+		Node tail = null;
+
+		while (current != null) {
+			if (current.data < key) {
+				if (head == null) {
+					head = current;
+					tail = current;
+				} else {
+					Node temp = current.next;
+					current.next = head;
+					head = current;
+					current = temp;
+				}
+			} else {
+				if (tail == null) {
+					tail = current;
+					head = current;
+				} else {
+					tail.next = current;
+					tail = tail.next;
+				}
+				current = current.next;
+				tail.next = null;
+			}
+		}
+
+		return head;
 	}
 }

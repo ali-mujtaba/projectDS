@@ -6,6 +6,7 @@ Write a code to remove duplicates from an unsorted linked list.
 package com.practice.linkedlist;
 
 import java.util.Scanner;
+import java.util.HashSet;
 
 public class RemoveDuplicates {
 
@@ -13,6 +14,7 @@ public class RemoveDuplicates {
 
 		Node head = seedList();
 		removeDuplicates(head);
+		removeDuplicates2(head);
 		displayList(head);
 	}
 
@@ -45,6 +47,9 @@ public class RemoveDuplicates {
 		return head;
 	}
 	public static void displayList(Node current) {
+		if (current == null) {
+			return;
+		}
 		System.out.print("List: ");
 		while (current.next != null) {
 			System.out.print(current.data + " -> ");
@@ -62,6 +67,18 @@ public class RemoveDuplicates {
 				}
 				currentTwin = currentTwin.next;
 			}
+			current = current.next;
+		}
+	}
+
+	public static void removeDuplicates2(Node current) {
+		HashSet<Integer> charSet = new HashSet<>();
+		Node previousNode = null;
+		while (current != null) {
+			if (charSet.contains(current.data)) {
+				previousNode.next = current.next;
+			}
+			previousNode = current;
 			current = current.next;
 		}
 	}
