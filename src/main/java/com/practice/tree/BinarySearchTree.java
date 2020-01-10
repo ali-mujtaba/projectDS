@@ -1,14 +1,16 @@
 import java.util.Scanner;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class BinarySearchTree {
 	BSTNode root;
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		BinarySearchTree tree1 = new BinarySearchTree();
-		for (int i = 0; i < 7; i++) {
-			System.out.println("Enter element: ");
-			tree1.add(scanner.nextInt());
-		}
+		// for (int i = 0; i < 7; i++) {
+		// 	System.out.println("Enter element: ");
+		// 	tree1.add(scanner.nextInt());
+		// }
 
 
 		BSTNode node1 = new BSTNode(50);
@@ -19,13 +21,13 @@ public class BinarySearchTree {
 		BSTNode node6 = new BSTNode(65);
 		BSTNode node7 = new BSTNode(85);
 
-		// tree1.root = node1;
-		// node1.left = node2;
-		// node1.right = node3;
-		// node2.left = node4;
-		// node2.right = node5;
-		// node3.left = node6;
-		// node3.right = node7;
+		tree1.root = node1;
+		node1.left = node2;
+		node1.right = node3;
+		node2.left = node4;
+		node2.right = node5;
+		node3.left = node6;
+		node3.right = node7;
 
 		// System.out.println(node1.left.data);
 		// System.out.println(node1.right.left.data);
@@ -42,11 +44,20 @@ public class BinarySearchTree {
 		postorderTraversal(tree1.root);
 		System.out.println();
 
+		System.out.print("Level-order Traversal: ");
+		levelorderTraversal(tree1.root);
+		System.out.println();
+
+		System.out.println("Height: " + height(tree1.root));
+		System.out.println("Leaves: " + countLeaves(tree1.root));
+
 		System.out.println("35: " + tree1.find(35));
 		System.out.println("37: " + tree1.find(37));
 		System.out.println("delete 75");
 		tree1.delete(75);
 		inorderTraversal(tree1.root);
+		System.out.println();
+		System.out.println("Leaves: " + countLeaves(tree1.root));
 
 	}
 
@@ -195,6 +206,49 @@ public class BinarySearchTree {
 		postorderTraversal(current.left);
 		postorderTraversal(current.right);
 		System.out.print(current.data + " ");
+	}
+
+	public static void levelorderTraversal(BSTNode current) {
+		Queue<BSTNode> queuedNodes = new LinkedList<>();
+		queuedNodes.add(current);
+		while (!queuedNodes.isEmpty()) {
+			BSTNode topNode = queuedNodes.remove();
+			if (topNode.left != null) {
+				queuedNodes.add(topNode.left);
+			}
+			if (topNode.right != null) {
+				queuedNodes.add(topNode.right);
+			}
+
+			System.out.print(topNode.data + " ");
+		}
+		System.out.println();
+	}
+
+	public static int height(BSTNode current) {
+		if (current == null) {
+			return 0;
+		}
+
+		int leftSubtreeHeight = height(current.left);
+		int rightSubtreeHeight = height(current.right);
+
+		return 1 + Math.max(leftSubtreeHeight, rightSubtreeHeight);
+	}
+
+	public static int countLeaves(BSTNode current) {
+		if (current == null) {
+			return 0;
+		}
+
+		int leftSubtree = countLeaves(current.left);
+		int rightSubtree = countLeaves(current.right);
+
+		if (leftSubtree == 0 && rightSubtree == 0) {
+			return leftSubtree + rightSubtree + 1;
+		}
+
+		return leftSubtree + rightSubtree;
 	}
 }
 
