@@ -40,6 +40,17 @@ public class BinaryTree {
 		levelorderTraversal(root);
 		System.out.println();
 
+		System.out.println("Height: " + height(root));
+		System.out.println("Diameter: " + diameter(root));
+		BTNode node0 = new BTNode(0);
+		BTNode node1000 = new BTNode(1000);
+		BTNode node2000 = new BTNode(2000);
+		node0.right = node1000;
+		node0.left = node1;
+		node1000.left = node2000;
+		root = node0;
+		System.out.println("Height: " + height(root));
+		System.out.println("Diameter: " + diameter(root));
 	}
 
 	public static void inorderTraversal(BTNode current) {
@@ -90,6 +101,30 @@ public class BinaryTree {
 		}
 		System.out.println();
 	}
+
+	public static int height(BTNode current) {
+		if (current == null) {
+			return 0;
+		}
+
+		int leftSubtreeHeight = height(current.left);
+		int rightSubtreeHeight = height(current.right);
+
+		return 1 + Math.max(leftSubtreeHeight, rightSubtreeHeight);
+	}
+
+	public static int diameter(BTNode current) {
+		if (current == null) {
+			return 0;
+		}
+
+		int d = height(current.left) + 1 + height(current.right);
+		int leftSubtreeDiameter = diameter(current.left);
+		int rightSubtreeDiameter = diameter(current.right);
+
+		return Math.max(d, Math.max(leftSubtreeDiameter, rightSubtreeDiameter));
+	}
+
 }
 
 class BTNode {
