@@ -60,6 +60,10 @@ public class BinaryTree {
 		node7.right = null;
 		System.out.println("Is tree balanced? " + isBalanced(root));
 
+		System.out.println();
+		System.out.println("Is Binary Search Tree? " + isBST(root));
+		node7.left = node8;
+		System.out.println("Is Binary Search Tree? " + isBST(root));
 	}
 
 	public static void inorderTraversal(BTNode current) {
@@ -159,6 +163,27 @@ public class BinaryTree {
 
 		return isBalanced(current.left) && isBalanced(current.right);
 	}
+
+	public static boolean isBST(BTNode current) {
+		if (current == null) {
+			return true;
+		}
+
+		if (current.left != null) {
+			if (current.data < current.left.data) {
+				return false;
+			}
+		}
+
+		if (current.right != null) {
+			if (current.data >= current.right.data) {
+				return false;
+			}
+		}
+
+		return isBST(current.left) && isBST(current.right);
+	}
+
 }
 
 class BTNode {
