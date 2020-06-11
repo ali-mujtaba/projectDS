@@ -53,6 +53,13 @@ public class BinaryTree {
 		System.out.println("Height: " + height(root));
 		System.out.println("Diameter: " + diameter(root));
 		System.out.println("Leaves: " + countLeaves(root));
+
+		System.out.println();
+		root = node1;
+		System.out.println("Is tree balanced? " + isBalanced(root));
+		node7.right = null;
+		System.out.println("Is tree balanced? " + isBalanced(root));
+
 	}
 
 	public static void inorderTraversal(BTNode current) {
@@ -140,6 +147,17 @@ public class BinaryTree {
 		}
 
 		return leftSubtree + rightSubtree;
+	}
+
+	public static boolean isBalanced(BTNode current) {
+		if (current == null) {
+			return true;
+		}
+		if (Math.abs(height(current.left) - height(current.right)) > 1) {
+			return false;
+		}
+
+		return isBalanced(current.left) && isBalanced(current.right);
 	}
 }
 
