@@ -53,6 +53,17 @@ public class BinaryTree {
 		System.out.println("Height: " + height(root));
 		System.out.println("Diameter: " + diameter(root));
 		System.out.println("Leaves: " + countLeaves(root));
+
+		System.out.println();
+		root = node1;
+		System.out.println("Is tree balanced? " + isBalanced(root));
+		node7.right = null;
+		System.out.println("Is tree balanced? " + isBalanced(root));
+
+		System.out.println();
+		System.out.println("Is Binary Search Tree? " + isBST(root));
+		node7.left = node8;
+		System.out.println("Is Binary Search Tree? " + isBST(root));
 	}
 
 	public static void inorderTraversal(BTNode current) {
@@ -141,6 +152,38 @@ public class BinaryTree {
 
 		return leftSubtree + rightSubtree;
 	}
+
+	public static boolean isBalanced(BTNode current) {
+		if (current == null) {
+			return true;
+		}
+		if (Math.abs(height(current.left) - height(current.right)) > 1) {
+			return false;
+		}
+
+		return isBalanced(current.left) && isBalanced(current.right);
+	}
+
+	public static boolean isBST(BTNode current) {
+		if (current == null) {
+			return true;
+		}
+
+		if (current.left != null) {
+			if (current.data < current.left.data) {
+				return false;
+			}
+		}
+
+		if (current.right != null) {
+			if (current.data >= current.right.data) {
+				return false;
+			}
+		}
+
+		return isBST(current.left) && isBST(current.right);
+	}
+
 }
 
 class BTNode {
