@@ -54,10 +54,12 @@ public class CheckSubtree {
 		node23.left = node24;
 
 		BTNode T2 = node11;
-		System.out.println(isSubtree(T1, T2));
+		System.out.println("v1: " + isSubtree(T1, T2));
+		System.out.println("v2: " + isSubtree2(T1, T2));
 
 		T2 = node21;
-		System.out.println(isSubtree(T1, T2));
+		System.out.println("v1: " + isSubtree(T1, T2));
+		System.out.println("v2: " + isSubtree2(T1, T2));
 
 	}
 
@@ -107,6 +109,42 @@ public class CheckSubtree {
 		}
 
 		return false;
+	}
+
+	public static boolean isSubtree2(BTNode T1, BTNode T2) {
+		if (T2 == null) {
+			return true;
+		}
+
+		return lookSubtree(T1, T2);
 
 	}
+
+	static boolean lookSubtree(BTNode T1, BTNode T2) {
+		if (T1 == null) {
+			return false;
+		}
+
+		if (T1.data == T2.data) {
+			return compareSubtree(T1, T2);
+		}
+
+		return lookSubtree(T1.left, T2) || lookSubtree(T1.right, T2);
+	}
+
+	static boolean compareSubtree(BTNode T1, BTNode T2) {
+		if (T1 == null && T2 == null) {
+			return true;
+		}
+		if (T1 == null || T2 == null) {
+			return false;
+		}
+
+		if (T1.data != T2.data) {
+			return false;
+		}
+
+		return compareSubtree(T1.left, T2.left) && compareSubtree(T1.right, T2.right);
+	}
+}
 }
