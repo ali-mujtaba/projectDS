@@ -5,6 +5,8 @@ public class SwapOddEvenBits {
 
 		System.out.println(BitManipulation.getBinaryString(swapOddEvenBits(45)));
 		System.out.println(BitManipulation.getBinaryString(swapOddEvenBits(22)));
+		System.out.println(BitManipulation.getBinaryString(swapOddEvenBitsBetter(45)));
+		System.out.println(BitManipulation.getBinaryString(swapOddEvenBitsBetter(22)));
 	}
 
 	static int swapOddEvenBits(int n) {
@@ -15,5 +17,9 @@ public class SwapOddEvenBits {
 			}
 		}
 		return n;
+	}
+
+	static int swapOddEvenBitsBetter(int n) {
+		return (((n & 0xaaaaaaaa) >> 1) | ((n & 0x55555555) << 1));
 	}
 }
