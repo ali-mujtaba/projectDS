@@ -15,30 +15,29 @@ public class CircularQueue {
       c = st.nextInt();
       System.out.println();
       switch (c) {
-        case 1:
-          System.out.print("Enter the element to be pushed: ");
-          int d = st.nextInt();
-          enqueue(d);
-          break;
-        case 2:
-          dequeue();
-          break;
-        case 3:
-          peek();
-          break;
-        case 4:
-          break;
-        default:
-          System.out.println("Invalid input! Try Again. ");
-          break;
+      case 1:
+        System.out.print("Enter the element to be pushed: ");
+        int d = st.nextInt();
+        enqueue(d);
+        break;
+      case 2:
+        dequeue();
+        break;
+      case 3:
+        peek();
+        break;
+      case 4:
+        break;
+      default:
+        System.out.println("Invalid input! Try Again. ");
+        break;
       }
       display();
     }
   }
 
   static void enqueue(int d) {
-    LinkedListNode linkedListNode = new LinkedListNode();
-    linkedListNode.data = d;
+    LinkedListNode linkedListNode = new LinkedListNode(d);
     if (front == null) {
       rear = linkedListNode;
       front = linkedListNode;
@@ -70,8 +69,7 @@ public class CircularQueue {
   }
 
   static void display() {
-    LinkedListNode curr = new LinkedListNode();
-    curr = front;
+    LinkedListNode curr = front;
     System.out.print("Queue: ");
     if (front != null) {
       while (curr != rear) {

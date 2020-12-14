@@ -15,30 +15,29 @@ public class Stack {
       c = st.nextInt();
       System.out.println();
       switch (c) {
-        case 1:
-          System.out.print("Enter the element to be pushed: ");
-          int d = st.nextInt();
-          push(d);
-          break;
-        case 2:
-          pop();
-          break;
-        case 3:
-          peek();
-          break;
-        case 4:
-          break;
-        default:
-          System.out.println("Invalid input! Try Again. ");
-          break;
+      case 1:
+        System.out.print("Enter the element to be pushed: ");
+        int d = st.nextInt();
+        push(d);
+        break;
+      case 2:
+        pop();
+        break;
+      case 3:
+        peek();
+        break;
+      case 4:
+        break;
+      default:
+        System.out.println("Invalid input! Try Again. ");
+        break;
       }
       display();
     }
   }
 
   static void push(int d) {
-    LinkedListNode node = new LinkedListNode();
-    node.data = d;
+    LinkedListNode node = new LinkedListNode(d);
     if (top == null)
       top = node;
     else {
@@ -66,8 +65,7 @@ public class Stack {
   }
 
   static void display() {
-    LinkedListNode curr = new LinkedListNode();
-    curr = top;
+    LinkedListNode curr = top;
     System.out.print("Stack: ");
     if (top != null) {
       while (curr.next != null) {
