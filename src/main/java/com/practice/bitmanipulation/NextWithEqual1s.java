@@ -6,9 +6,17 @@ public class NextWithEqual1s {
 		System.out.println(getNextSmallest(21));
 		System.out.println(getNextSmallest(22));
 		System.out.println();
+		System.out.println(getNextSmallestArithmetically(204));
+		System.out.println(getNextSmallestArithmetically(21));
+		System.out.println(getNextSmallestArithmetically(22));
+		System.out.println();
 		System.out.println(getNextLargest(20));
 		System.out.println(getNextLargest(211));
 		System.out.println(getNextLargest(22));
+		System.out.println();
+		System.out.println(getNextLargestArithmetically(20));
+		System.out.println(getNextLargestArithmetically(211));
+		System.out.println(getNextLargestArithmetically(22));
 	}
 
 	// as in NEXT number
@@ -85,5 +93,45 @@ public class NextWithEqual1s {
 		}
 
 		return Integer.MIN_VALUE;
+	}
+
+	static int getNextSmallestArithmetically(int n) {
+		int count1s = 0;
+		int p = 0;
+		for (int i = 0; i < 32; i++) {
+			boolean currentBit = BitManipulation.getBit(n, i);
+
+			if (!currentBit) {
+				if (count1s > 0) {
+					p = i;
+					break;
+				}
+			} else {
+				count1s++;
+			}
+		}
+
+		return n + (1 << (p - count1s)) + (1 << (count1s - 1)) - 1;
+
+	}
+
+	static int getNextLargestArithmetically(int n) {
+		int count0s = 0;
+		int p = 0;
+		for (int i = 0; i < 32; i++) {
+			boolean currentBit = BitManipulation.getBit(n, i);
+
+			if (currentBit) {
+				if (count0s > 0) {
+					p = i;
+					break;
+				}
+			} else {
+				count0s++;
+			}
+		}
+
+		return n - (1 << (p - count0s)) - (1 << (count0s - 1)) + 1;
+
 	}
 }

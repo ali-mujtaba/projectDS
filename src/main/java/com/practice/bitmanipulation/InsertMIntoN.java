@@ -9,6 +9,7 @@ public class InsertMIntoN {
 		int j = 6;
 
 		System.out.println(BitManipulation.getBinaryString(insertMIntoN(M, N, i, j)));
+		System.out.println(BitManipulation.getBinaryString(insertMIntoNDifferent(M, N, i, j)));
 	}
 
 	public static int insertMIntoN(int M, int N, int i, int j) {
@@ -28,6 +29,24 @@ public class InsertMIntoN {
 
 		return N | (M << i);
 	}
+
+	public static int insertMIntoNDifferent(int M, int N, int i, int j) {
+
+		int mask = ~0;
+
+		int rightEnd = ~((1 << i) - 1) ;
+		mask = mask & rightEnd;
+
+		int leftEnd = (1 << (j + 1)) - 1;
+		mask = mask & leftEnd;
+
+		mask = ~mask;
+		N = N & mask;
+
+		return N | (M << i);
+
+	}
+
 
 	// clears bits i through j
 	static int clearBits(int N, int i, int j) {

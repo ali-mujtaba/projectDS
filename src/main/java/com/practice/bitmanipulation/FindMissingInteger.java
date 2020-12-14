@@ -1,19 +1,30 @@
 package com.practice.bitmanipulation;
 
+import java.util.*;
+
 public class FindMissingInteger {
 	public static void main(String[] args) {
 		int n = 10;
 		int[] A = new int[n];
+		ArrayList<Integer> arrayAsList = new ArrayList<Integer>();
+
 		for (int i = 0; i < A.length; i++) {
 			A[i] = i;
+			arrayAsList.add(i);
 		}
+
 		A[n - 3] = n;
+		arrayAsList.remove(n - 3);
+		arrayAsList.add(n - 3, n);
 		System.out.print("Array: ");
 		for (int i = 0; i < A.length; i++) {
 			System.out.print(A[i] + " ");
 		}
+		System.out.println("\nArrayList: " + arrayAsList);
+
 		System.out.println();
 		System.out.println("Missing Integer: " + find(A, n));
+		System.out.println("Missing Integer: " + find2(n, arrayAsList));
 	}
 
 	static int find(int[] A, int n) {
@@ -60,6 +71,39 @@ public class FindMissingInteger {
 		return missingInteger;
 	}
 
+	static int find2(int n, ArrayList<Integer> list) {
+		return findInteger(n, list, 0);
+	}
+
+	static int findInteger(int n, ArrayList<Integer> list, int j) {
+		int k = (int)(Math.log(n) / Math.log(2));
+		if (j > k) {
+			return 0;
+		}
+
+		ArrayList<Integer> zeroBits = new ArrayList<>(list.size() / 2);
+		ArrayList<Integer> oneBits = new ArrayList<>(list.size() / 2);
+
+		for (int x : list) {
+			if (jthBitOfAi(x, j)) {
+				oneBits.add(x);
+			} else {
+				zeroBits.add(x);
+			}
+		}
+
+		if (zeroBits.size() <= oneBits.size()) {
+			int v = findInteger(n, zeroBits, j + 1);
+			return (v << 1) | 0;
+		} else {
+			int v = findInteger(n, oneBits, j + 1);
+			return (v << 1) | 1;
+		}
+	}
+
+	static boolean jthBitOfAi(int Ai, int j) {
+		return BitManipulation.getBit(Ai, j);
+	}
 	static boolean jthBitOfAi(int[] A, int i, int j) {
 
 		return BitManipulation.getBit(A[i], j);

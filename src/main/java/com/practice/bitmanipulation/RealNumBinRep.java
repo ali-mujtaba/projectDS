@@ -2,6 +2,13 @@ package com.practice.bitmanipulation;
 
 public class RealNumBinRep {
 	public static void main(String[] args) {
+		System.out.println(getRep2(0.71875));
+		System.out.println(getRep2(0.8125));
+		System.out.println(getRep2(0.72));
+		System.out.println(getRep3(0.71875));
+		System.out.println(getRep3(0.8125));
+		System.out.println(getRep3(0.72));
+
 		if (!getRep(0.8125, 0, 1)) {
 			System.out.println("ERROR");
 		}
@@ -73,4 +80,52 @@ public class RealNumBinRep {
 		return false;
 	}
 
+	static String getRep2(double n) {
+		if (n <= 0 || n >= 1) {
+			return "ERROR";
+		}
+		StringBuilder binary = new StringBuilder();
+		binary.append(".");
+		while (n > 0) {
+			if (binary.length() >= 32) {
+				return "ERROR";
+			}
+
+			double temp = n * 2;
+			if (temp >= 1) {
+				binary.append("1");
+				n = temp - 1;
+			} else {
+				binary.append("0");
+				n = temp;
+			}
+		}
+
+		return binary.toString();
+	}
+
+	static String getRep3(double n) {
+		if (n <= 0 || n >= 1) {
+			return "ERROR";
+		}
+		StringBuilder binary = new StringBuilder();
+		binary.append(".");
+		double factor = 1;
+		while (n > 0) {
+			if (binary.length() >= 32) {
+				return "ERROR";
+			}
+
+			factor = factor / 2;
+			// System.out.println(factor);
+			if (n >= factor) {
+				binary.append("1");
+				n -= factor;
+			} else {
+				binary.append("0");
+			}
+		}
+
+		return binary.toString();
+	}
 }
