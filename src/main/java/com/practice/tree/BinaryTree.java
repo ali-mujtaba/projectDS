@@ -26,18 +26,33 @@ public class BinaryTree {
 		node7.right = node8;
 		node8.right = node9;
 
+		Integer[] nodeVals = {50,25,75,15,35,65,85,null,null,null,null,null,null,null,95,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,105};
+		BTNode alternateRoot = buildTree(nodeVals);
+
 
 		System.out.print("\nIn-order: ");
 		inorderTraversal(root);
 		System.out.println();
+		System.out.print("\nIn-order: ");
+		inorderTraversal(alternateRoot);
+		System.out.println();
 		System.out.print("Pre-order: ");
 		preorderTraversal(root);
+		System.out.println();
+		System.out.print("Pre-order: ");
+		preorderTraversal(alternateRoot);
 		System.out.println();
 		System.out.print("Post-order: ");
 		postorderTraversal(root);
 		System.out.println();
+		System.out.print("Post-order: ");
+		postorderTraversal(alternateRoot);
+		System.out.println();
 		System.out.print("Level-order: ");
 		levelorderTraversal(root);
+		System.out.println();
+		System.out.print("Level-order: ");
+		levelorderTraversal(alternateRoot);
 		System.out.println();
 
 		System.out.println("Height: " + height(root));
@@ -64,6 +79,30 @@ public class BinaryTree {
 		System.out.println("Is Binary Search Tree? " + isBST(root));
 		node7.left = node8;
 		System.out.println("Is Binary Search Tree? " + isBST(root));
+	}
+
+	public static BTNode buildTree(Integer[] nodesData){
+		if(nodesData.length==0){
+			return null;
+		}
+
+		BTNode[] nodes = new BTNode[nodesData.length];		
+		for(int i=0;i<nodesData.length;i++){
+			if(nodesData[i]!=null){
+				nodes[i] = new BTNode(nodesData[i]);
+			}
+		}
+
+		for(int i=0;i<nodes.length/2;i++){
+			if(nodes[i]!=null){
+				nodes[i].left = nodes[2*i+1];
+				if(2*i+2<nodes.length){
+					nodes[i].right = nodes[2*i+2];
+				}	
+			}
+        }
+
+		return nodes[0];
 	}
 
 	public static void inorderTraversal(BTNode current) {
