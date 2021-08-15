@@ -72,13 +72,10 @@ public class BinaryTree {
 		System.out.println();
 		root = node1;
 		System.out.println("Is tree balanced? " + isBalanced(root));
+		System.out.println("Is tree balanced? " + isBalancedBetter(root));
 		node7.right = null;
 		System.out.println("Is tree balanced? " + isBalanced(root));
-
-		System.out.println();
-		System.out.println("Is Binary Search Tree? " + isBST(root));
-		node7.left = node8;
-		System.out.println("Is Binary Search Tree? " + isBST(root));
+		System.out.println("Is tree balanced? " + isBalancedBetter(root));
 	}
 
 	public static BTNode buildTree(Integer[] nodesData){
@@ -203,24 +200,32 @@ public class BinaryTree {
 		return isBalanced(current.left) && isBalanced(current.right);
 	}
 
-	public static boolean isBST(BTNode current) {
+	public static boolean isBalancedBetter(BTNode current) {
+		if (checkHeight(current) == -1) {
+			return false;
+		}
+		return true;
+	}
+
+	private static int checkHeight(BTNode current) {
 		if (current == null) {
-			return true;
+			return 0;
 		}
 
-		if (current.left != null) {
-			if (current.data < current.left.data) {
-				return false;
-			}
+		int leftSubtreeHeight = checkHeight(current.left);
+		if (leftSubtreeHeight == -1) {
+			return -1;
+		}
+		int rightSubtreeHeight = checkHeight(current.right);
+		if (rightSubtreeHeight == -1) {
+			return -1;
 		}
 
-		if (current.right != null) {
-			if (current.data >= current.right.data) {
-				return false;
-			}
+		if (Math.abs(leftSubtreeHeight - rightSubtreeHeight) > 1) {
+			return -1;
 		}
 
-		return isBST(current.left) && isBST(current.right);
+		return Math.max(leftSubtreeHeight, rightSubtreeHeight) + 1;
 	}
 
 }
