@@ -1,21 +1,3 @@
-Done implementation of:-
+This repository presents part of my knowledge and practice of Data Structures and Algorithms. 
 
-  - Stack using array
-  - Queue using array
-  - Circular Queue using array
-  - Binary Search Algorithm
-  - Sorting Algorithms
-    - Insertion Sort
-    - Bubble Sort
-    - Selection Sort
-    - Counting Sort
-    - Radix Sort
-    - Bucket Sort
-    - Shell Sort
-    - Merge Sort
-    - Quick Sort
-    - Heap Sort
-  - Linked list and operations on it
-  - Stack using linked list
-  - Queue using linked list
-  - Circular Queue using linked list
+Feel free to check out all the code that is in the master branch as well as in the pull requests.
